@@ -1,16 +1,11 @@
 #include "regression.hpp"
 
-void regression::add(double x, double y) {
-  ++N_;
-  sum_x_ += x;
-  sum_y_ += y;
-  sum_x2_ += x * x;
-  sum_xy_ += x * y;
-}
+void regression::add(double x, double y) { points_.push_back({x, y}); }
 
 result fit(regression const &reg) { return reg.fit(); }
 
 result regression::fit() const {
+  assert(N_ == points_.size());
   if (N_ < 2) {
     throw std::runtime_error{"Not enough points to run a fit"};
   };
@@ -26,4 +21,7 @@ result regression::fit() const {
   return {a, b};
 }
 
-  int regression::size() const { return N_; }
+int regression::size() const {
+  assert(N_ == points_.size());
+  return N_;
+}
