@@ -3,18 +3,21 @@
 
 #include <cassert>
 #include <stdexcept>
+#include <vector>
 struct result {
   double A{};
   double B{};
 };
 
 class regression {
-  int N_{};
-  double sum_x_{};
-  double sum_y_{};
-  double sum_x2_{};
-  double sum_xy_{};
+  struct Point {
+    double x;
+    double y;
+  };
 
+  std::vector<Point> points_{};
+
+  
  public:
   void add(double x, double y);
 
